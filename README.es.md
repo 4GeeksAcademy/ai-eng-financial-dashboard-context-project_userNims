@@ -17,6 +17,29 @@ _These instructions are [available in English](./README.md)._
 
 _Dashboard de métricas financieras con frontend en React + TypeScript y backend en FastAPI._
 
+## Stack tecnológico
+
+| Capa | Tecnología | Versión | Función en el proyecto |
+|---|---|---|---|
+| **Runtime (frontend)** | Node.js | 24 | Ejecuta Vite, npm y el servidor de desarrollo de React. Fijado en `frontend/Dockerfile`. |
+| **Runtime (backend)** | Python | 3.13 | Ejecuta el servidor FastAPI. Fijado en `backend/Dockerfile`. |
+| **Framework frontend** | React | ^19.2.4 | Renderiza la interfaz del dashboard y gestiona el estado de componentes (`src/App.tsx`). |
+| **Lenguaje** | TypeScript | ~6.0.2 | Aporta tipos estáticos al frontend; compila a ES2023 (`tsconfig.app.json`). |
+| **Bundler / Dev server** | Vite | ^8.0.4 | Compila y sirve la SPA; proxea `/api` al backend (`vite.config.ts`). |
+| **Framework CSS** | Tailwind CSS | ^4.2.2 | Estilos utility-first mediante el plugin `@tailwindcss/vite` (`src/index.css`). |
+| **Gráficos** | Recharts | ^3.8.1 | Renderiza los gráficos de ingresos/egresos y beneficio en `src/components/dashboard/`. |
+| **Framework API** | FastAPI | * | Define los endpoints REST y los modelos Pydantic (`backend/app/main.py`, `routes.py`). |
+| **Servidor ASGI** | Uvicorn | * | Sirve la aplicación FastAPI; se lanza vía debugpy para depuración remota (`Dockerfile`). |
+| **Validación** | Pydantic | * | Modelos de datos y validación de parámetros de consulta (incluido con FastAPI). |
+| **Testing (frontend)** | Vitest | ^4.1.4 | Pruebas unitarias con cobertura V8 (`npm run test`). |
+| **Testing (backend)** | Pytest | * | Pruebas Python; ver `backend/tests/`. |
+| **Linting** | ESLint | ^9.39.4 | Análisis estático para TS/TSX con plugins react-hooks y react-refresh (`eslint.config.js`). |
+| **Utilidades CSS** | clsx, tailwind-merge, CVA | ^2.1.1 / ^3.5.0 / ^0.7.1 | Fusión condicional de clases en componentes UI (`components/ui/card.tsx`). |
+| **Iconos** | Lucide React | ^1.8.0 | Biblioteca de iconos usada en los componentes del dashboard. |
+| **HTTP client (tests)** | httpx | * | Usado en los tests del backend (`backend/requirements.txt`). |
+
+> \* Estas dependencias aparecen en `backend/requirements.txt` sin versiones fijadas. Ejecuta `pip install` para resolver la última versión compatible.
+
 ## Pasos recomendados
 
 1. Haz un fork de este repositorio a tu cuenta.

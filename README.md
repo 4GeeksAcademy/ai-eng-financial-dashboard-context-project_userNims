@@ -17,6 +17,29 @@ _Estas instrucciones están [disponibles en español](./README.es.md)._
 
 _Financial metrics dashboard with a React + TypeScript frontend and a FastAPI backend._
 
+## Tech stack
+
+| Layer | Technology | Version | Role in the project |
+|---|---|---|---|
+| **Runtime (frontend)** | Node.js | 24 | Runs Vite, npm and the React dev server. Fixed by `frontend/Dockerfile`. |
+| **Runtime (backend)** | Python | 3.13 | Runs the FastAPI server. Fixed by `backend/Dockerfile`. |
+| **Frontend framework** | React | ^19.2.4 | Renders the dashboard UI and manages component state (`src/App.tsx`). |
+| **Language** | TypeScript | ~6.0.2 | Adds static types to the frontend; compiles to ES2023 (`tsconfig.app.json`). |
+| **Bundler / Dev server** | Vite | ^8.0.4 | Builds and serves the SPA; proxies `/api` to the backend (`vite.config.ts`). |
+| **CSS framework** | Tailwind CSS | ^4.2.2 | Utility-first styling via the `@tailwindcss/vite` plugin (`src/index.css`). |
+| **Charting** | Recharts | ^3.8.1 | Renders income/outcome and profit charts in `src/components/dashboard/`. |
+| **API framework** | FastAPI | * | Defines REST endpoints and Pydantic models (`backend/app/main.py`, `routes.py`). |
+| **ASGI server** | Uvicorn | * | Serves the FastAPI app; launched via debugpy for remote debugging (`Dockerfile`). |
+| **Validation** | Pydantic | * | Data models and query parameter validation (bundled with FastAPI). |
+| **Testing (frontend)** | Vitest | ^4.1.4 | Unit tests with V8 coverage (`npm run test`). |
+| **Testing (backend)** | Pytest | * | Python tests; see `backend/tests/`. |
+| **Linting** | ESLint | ^9.39.4 | Static analysis for TS/TSX with react-hooks and react-refresh plugins (`eslint.config.js`). |
+| **Utility CSS helpers** | clsx, tailwind-merge, CVA | ^2.1.1 / ^3.5.0 / ^0.7.1 | Conditional class merging in UI components (`components/ui/card.tsx`). |
+| **Icons** | Lucide React | ^1.8.0 | Icon library used across dashboard components. |
+| **HTTP client (tests)** | httpx | * | Used in backend tests (`backend/requirements.txt`). |
+
+> \* These dependencies are listed in `backend/requirements.txt` without pinned versions. Run `pip install` to resolve the latest compatible release.
+
 ## Recommended steps
 
 1. Fork this repository to your account.
