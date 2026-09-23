@@ -55,8 +55,8 @@
 
 ### 8. Instalación frontend no reproducible
 - **Convención confirmada:** la imagen instala dependencias con npm y ejecuta Vite.
-- **Riesgo observado:** el Dockerfile usa `npm install` y no hay un lockfile frontend visible en el repositorio.
-- **Evidencia por ruta y archivo:** `frontend/Dockerfile`; `frontend/package.json`.
+- **Riesgo observado:** el Dockerfile usa `npm install` aunque existe un lockfile frontend en el repositorio.
+- **Evidencia por ruta y archivo:** `frontend/Dockerfile`; `frontend/package.json`; `frontend/package-lock.json`.
 - **Regla propuesta:** versionar `frontend/package-lock.json` y usar `npm ci` en imágenes y CI.
 - **Tarea pequeña para validarla:** generar el lockfile, cambiar el build a `npm ci` y ejecutar `npm run build`.
 
@@ -67,12 +67,12 @@
 - **Regla propuesta:** declarar un healthcheck para `/health` y hacer que el frontend dependa de un backend saludable.
 - **Tarea pequeña para validarla:** añadir el healthcheck, arrancar Compose desde cero y comprobar `/health`, `/api/metrics` y la página frontend tras el estado saludable.
 
-### 10. Documentación de `.env.example` inexistente
+### 10. Documentación de `.env.example`
 - **Convención confirmada:** el frontend lee opcionalmente `VITE_API_BASE_URL` y por defecto usa rutas relativas.
-- **Riesgo observado:** el README instruye copiar `frontend/.env.example`, pero ese archivo no existe.
-- **Evidencia por ruta y archivo:** `README.md`; `README.es.md`; `frontend/src/App.tsx`; ausencia de `frontend/.env.example`.
+- **Riesgo observado:** el README depende de que `frontend/.env.example` permanezca alineado con la variable que consume la aplicación.
+- **Evidencia por ruta y archivo:** `README.md`; `README.es.md`; `frontend/src/App.tsx`; `frontend/.env.example`.
 - **Regla propuesta:** documentar solo archivos de configuración versionados; crear `.env.example` si la variable forma parte del flujo soportado.
-- **Tarea pequeña para validarla:** decidir entre crear el archivo con `VITE_API_BASE_URL=` o retirar esa instrucción de ambos README y verificar un build con configuración por defecto.
+- **Tarea pequeña para validarla:** comprobar que `frontend/.env.example` documenta `VITE_API_BASE_URL` y verificar un build con configuración por defecto.
 
 ### 11. Periodo de UI fijado y datos relativos
 - **Convención confirmada:** el backend genera 12 meses relativos a `date.today()` y el frontend presenta un periodo literal.

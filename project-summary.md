@@ -17,6 +17,6 @@
 - ✅ Verificado: el backend expone `GET /health` y devuelve `{"status":"ok"}` en la prueba automatizada — evidencia: `backend/app/routes.py`, `backend/tests/test_routes.py`.
 - ✅ Verificado: las pruebas backend pasan, 15 de 15 — evidencia: `backend/tests/test_routes.py`.
 - ✅ Verificado: los contenedores construyen y los logs confirman el arranque de Uvicorn y Vite — evidencia: `docker-compose.yml`, `backend/Dockerfile`, `frontend/Dockerfile`.
-- ❌ Corregido: “existe `frontend/.env.example` para configurar `VITE_API_BASE_URL`” → el archivo no existe; la variable sí se lee opcionalmente desde `import.meta.env` — evidencia: `README.md`, `frontend/src/App.tsx`.
+- ✅ Verificado: existe `frontend/.env.example` para configurar `VITE_API_BASE_URL` y la variable se lee opcionalmente desde `import.meta.env` — evidencia: `README.md`, `frontend/.env.example`, `frontend/src/App.tsx`.
 - ❌ Corregido: “Compose declara healthchecks automáticos” → no hay ninguna sección `healthcheck`; la salud se comprueba mediante `/health` y las pruebas — evidencia: `docker-compose.yml`, `backend/app/routes.py`.
 - ❓ Pendiente: no se pudo confirmar de forma estable una respuesta HTTP en vivo después del arranque de Compose; las primeras conexiones fueron reiniciadas durante la inicialización, aunque los logs confirmaron que ambos servicios quedaron iniciados — evidencia: `docker-compose.yml`, logs de Compose.
