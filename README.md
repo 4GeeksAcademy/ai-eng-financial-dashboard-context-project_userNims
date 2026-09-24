@@ -65,12 +65,21 @@ _Financial metrics dashboard with a React + TypeScript frontend and a FastAPI ba
 docker compose up --build
 ```
 
-The frontend uses the Vite proxy for `/api` by default, so no extra environment variables are required in local development or Codespaces.
-If you need to target a different backend origin, copy `frontend/.env.example` to `.env` and set `VITE_API_BASE_URL`.
+The frontend always calls the relative `/api/metrics` route. Vite proxies `/api` using `VITE_API_PROXY_TARGET`; Docker Compose sets this to `http://host.docker.internal:8000` and maps `host.docker.internal` to the host gateway so the setup works in GitHub Codespaces. FastAPI listens on `0.0.0.0:8000`, and Vite listens on `0.0.0.0:5173`.
 
 - Frontend: http://localhost:5173
 - Backend: http://localhost:8000
 - API documentation: http://localhost:8000/docs
+
+To verify the services and the proxied API:
+
+```bash
+docker compose config
+docker compose ps
+curl -I http://localhost:8000/docs
+curl http://localhost:8000/api/metrics
+curl -I http://localhost:5173
+```
 
 ---
 
